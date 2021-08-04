@@ -1,15 +1,19 @@
 import {Fragment} from "react";
 import Nav from "./Nav";
 import CartWidget from "./CartWidget";
-import ItemListContainer from "./ItemListContainer";
 
 const NavBar = () => {
     return (
         <Fragment>
-            <h1><a href="/">My Commerce</a></h1>
-            <Nav />
-            <CartWidget />
-            <ItemListContainer greeting="Hola Mundo" />
+            <header className="clearfix mb2 p1 white bg-black">
+                <div className="left">
+                    <a href="/" className="btn">My Commerce</a>
+                </div>
+                <div className="right align-middle">
+                    <Nav/>
+                    <CartWidget/>
+                </div>
+            </header>
         </Fragment>
     );
 };
