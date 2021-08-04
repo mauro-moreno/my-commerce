@@ -7,8 +7,8 @@ const ItemList = () => {
 
     useEffect(() => {
         getItems()
-            .then((items) => {
-                setItems(items);
+            .then((data) => {
+                setItems(data);
             })
     })
 

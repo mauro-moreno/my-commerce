@@ -9,12 +9,14 @@ import 'basscss-ui-utility-groups/index.css';
 import './App.css';
 import NavBar from "./components/NavBar";
 import ItemListContainer from "./components/ItemListContainer";
+import ItemDetailContainer from "./components/ItemDetailContainer";
 
 const App = () => {
     return (
         <Fragment>
             <NavBar/>
             <ItemListContainer greeting="Hola Mundo"/>
+            <ItemDetailContainer/>
             <footer className="clearfix mt2 p2 white bg-black center">Copyright 2021</footer>
         </Fragment>
     );

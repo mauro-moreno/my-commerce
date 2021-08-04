@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Item from "./Item.js";
+import ItemDetail from "./ItemDetail.js";
 
 test('Item renders item data', () => {
     const item = {
@@ -8,8 +8,9 @@ test('Item renders item data', () => {
         price: 1000,
         pictureUrl: "https://via.placeholder.com/400x300"
     };
-    render(<Item item={item} />);
+    render(<ItemDetail item={item} />);
     expect(screen.getByText(item.title)).toBeInTheDocument();
+    expect(screen.getByText(item.description)).toBeInTheDocument();
     expect(screen.getByText(`$${item.price}`)).toBeInTheDocument();
     expect(screen.getByRole('img')).toHaveAttribute('src', item.pictureUrl);
     expect(screen.getByRole('img')).toHaveAttribute('alt', item.title);
