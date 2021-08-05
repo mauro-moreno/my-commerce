@@ -1,6 +1,7 @@
 import {render, screen, waitFor} from '@testing-library/react';
 import ItemDetailContainer from "./ItemDetailContainer.js";
 import getItem from "../services/getItem";
+import {MemoryRouter} from "react-router-dom";
 
 jest.mock("../services/getItem");
 jest.mock("./ItemDetail", () => {
@@ -23,7 +24,11 @@ test('ItemDetailContainer render an item from promise', async () => {
         pictureUrl: "https://via.placeholder.com/400x300"
     };
     getItem.mockResolvedValue(item);
-    render(<ItemDetailContainer/>);
+    render(
+        <MemoryRouter>
+            <ItemDetailContainer/>
+        </MemoryRouter>
+    );
 
     expect(screen.getByText("Cargando")).toBeInTheDocument();
 

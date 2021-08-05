@@ -1,4 +1,5 @@
 import {Fragment} from "react";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import 'normalize.css/normalize.css';
 import 'basscss/css/basscss.min.css';
 import 'basscss-btn/index.css';
@@ -14,9 +15,20 @@ import ItemDetailContainer from "./components/ItemDetailContainer";
 const App = () => {
     return (
         <Fragment>
-            <NavBar/>
-            <ItemListContainer greeting="Hola Mundo"/>
-            <ItemDetailContainer/>
+            <BrowserRouter>
+                <NavBar/>
+                <Switch>
+                    <Route exact path="/">
+                        <ItemListContainer greeting="Categoria 1"/>
+                    </Route>
+                    <Route path="/category/:id">
+                        <ItemListContainer greeting="Categoria 2"/>
+                    </Route>
+                    <Route path="/item/:id">
+                        <ItemDetailContainer/>
+                    </Route>
+                </Switch>
+            </BrowserRouter>
             <footer className="clearfix mt2 p2 white bg-black center">Copyright 2021</footer>
         </Fragment>
     );

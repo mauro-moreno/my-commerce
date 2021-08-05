@@ -1,10 +1,11 @@
 import React from "react";
+import {NavLink} from "react-router-dom";
 
 const Nav = () => {
     return (
         <nav className="left">
-            <a href="#" className="btn py2">Categoria 1</a>
-            <a href="#" className="btn py2">Categoria 2</a>
+            <NavLink to="/category/1" className="btn py2">Categoria 1</NavLink>
+            <NavLink to="/category/2" className="btn py2">Categoria 2</NavLink>
         </nav>
     );
 };

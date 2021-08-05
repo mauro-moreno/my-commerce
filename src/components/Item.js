@@ -1,9 +1,10 @@
 import {Fragment} from "react";
+import {NavLink} from "react-router-dom";
 
-const Item = ({ item: { title, price, pictureUrl }}) => {
+const Item = ({ item: { id, title, price, pictureUrl }}) => {
     return (
         <Fragment>
-            <h2>{title}</h2>
+            <h2><NavLink to={`/item/${id}`}>{title}</NavLink></h2>
             <p>${price}</p>
             <img src={pictureUrl} alt={title} />
         </Fragment>
