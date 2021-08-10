@@ -11,6 +11,7 @@ import './App.css';
 import NavBar from "./components/NavBar";
 import ItemListContainer from "./components/ItemListContainer";
 import ItemDetailContainer from "./components/ItemDetailContainer";
+import Cart from "./components/Cart";
 
 const App = () => {
     return (
@@ -20,6 +21,9 @@ const App = () => {
                 <Switch>
                     <Route exact path="/">
                         <ItemListContainer greeting="Categoria 1"/>
+                    </Route>
+                    <Route exact path="/cart">
+                        <Cart/>
                     </Route>
                     <Route path="/category/:id">
                         <ItemListContainer greeting="Categoria 2"/>
