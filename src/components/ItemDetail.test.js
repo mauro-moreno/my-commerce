@@ -41,9 +41,7 @@ test('ItemDetail renders item data', () => {
                 isInCart: () => false
             }
         });
-    render(
-        <ItemDetail item={item}/>
-    );
+    render(<ItemDetail item={item}/>);
     expect(screen.getByText(item.title)).toBeInTheDocument();
     expect(screen.getByText(item.description)).toBeInTheDocument();
     expect(screen.getByText(`$${item.price}`)).toBeInTheDocument();

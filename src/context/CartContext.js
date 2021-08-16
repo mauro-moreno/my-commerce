@@ -9,6 +9,9 @@ const CartContextProvider = ({children}) => {
     const [items, setItems] = useState([]);
 
     const addItem = item => {
+        if (isInCart(item.id)) {
+            return false;
+        }
         setItems([...items, item]);
     };
 
