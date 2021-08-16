@@ -21,8 +21,9 @@ const ItemDetail = ({item}) => {
             {count ? (
                 <Fragment>
                     <p>Cantidad: {count}</p>
-                    <NavLink to="/cart" className="btn btn-outline" onClick={() => context.addItem(item)}>Terminar la
-                        compra</NavLink>
+                    <NavLink to="/cart" className="btn btn-outline" onClick={() => context.addItem(item, count)}>
+                        Terminar la compra
+                    </NavLink>
                 </Fragment>
             ) : (
                 <Fragment>

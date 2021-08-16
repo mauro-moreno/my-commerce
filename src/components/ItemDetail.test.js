@@ -79,7 +79,7 @@ test('ItemDetail can add item to cart', async () => {
 
     userEvent.click(screen.getByText('Terminar la compra'));
     await waitFor(() => {
-        expect(addItem).toHaveBeenCalled();
+        expect(addItem).toHaveBeenCalledWith(item, 2);
     })
 });
 

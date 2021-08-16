@@ -8,11 +8,11 @@ const {Provider} = CartContext;
 const CartContextProvider = ({children}) => {
     const [items, setItems] = useState([]);
 
-    const addItem = item => {
+    const addItem = (item, quantity) => {
         if (isInCart(item.id)) {
             return false;
         }
-        setItems([...items, item]);
+        setItems([...items, {item, quantity}]);
     };
 
     const removeItem = itemId => {
@@ -24,7 +24,7 @@ const CartContextProvider = ({children}) => {
     }
 
     const isInCart = itemId => {
-        return items.some((item) => item.id === itemId);
+        return items.some((i) => i.item.id === itemId);
     }
 
     const context = {
