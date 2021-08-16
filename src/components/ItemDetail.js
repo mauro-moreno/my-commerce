@@ -1,8 +1,11 @@
 import {Fragment, useState} from "react";
+import {useCartContext} from "../context/CartContext";
 import ItemCount from "./ItemCount";
 import {NavLink} from "react-router-dom";
 
-const ItemDetail = ({item: {title, description, price, pictureUrl, stock, initial}}) => {
+const ItemDetail = ({item}) => {
+    const {title, description, price, pictureUrl, stock, initial} = item;
+    const context = useCartContext();
     const [count, setCount] = useState();
 
     const addItem = eventCount => {
@@ -18,10 +21,17 @@ const ItemDetail = ({item: {title, description, price, pictureUrl, stock, initia
             {count ? (
                 <Fragment>
                     <p>Cantidad: {count}</p>
-                    <NavLink to="/cart" className="btn btn-outline">Terminar la compra</NavLink>
+                    <NavLink to="/cart" className="btn btn-outline" onClick={() => context.addItem(item)}>Terminar la
+                        compra</NavLink>
                 </Fragment>
             ) : (
-                <ItemCount stock={stock} initial={initial && 1} onAdd={addItem}/>
+                <Fragment>
+                    {context.isInCart(item.id) ? (
+                        <p>Producto ya agregado en el carrito</p>
+                    ) : (
+                        <ItemCount stock={stock} initial={initial && 1} onAdd={addItem}/>
+                    )}
+                </Fragment>
             )}
         </Fragment>
     );
