@@ -16,11 +16,11 @@ const CartContextProvider = ({children}) => {
     };
 
     const removeItem = itemId => {
-        // placeholder
+        setItems(items.filter(i => i.item.id !== itemId))
     };
 
     const clear = () => {
-        // placeholder
+        setItems([]);
     }
 
     const isInCart = itemId => {
