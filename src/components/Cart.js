@@ -1,14 +1,16 @@
 import {useCartContext} from "../context/CartContext";
 import {Fragment} from "react";
 import {NavLink} from "react-router-dom";
+import CartItem from "./CartItem";
 
 const Cart = () => {
-    const context = useCartContext();
+    const {items, clear, getTotal} = useCartContext();
+
     return (
         <Fragment>
             <h1>Carrito</h1>
-            <button onClick={() => context.clear()}>Limpiar carrito</button>
-            {context.items.length === 0 ? (
+            <button onClick={() => clear()}>Limpiar carrito</button>
+            {items.length === 0 ? (
                 <Fragment>
                     <p>No hay items en el carrito</p>
                     <NavLink to="/">Volver</NavLink>
@@ -26,25 +28,16 @@ const Cart = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {context.items.map(({item, quantity}) => {
+                    {items.map(item => {
                         return (
-                            <tr key={item.id}>
-                                <td>{item.id}</td>
-                                <td>{item.title}</td>
-                                <td>{quantity}</td>
-                                <td>${item.price}</td>
-                                <td>${quantity * item.price}</td>
-                                <td><button onClick={() => context.removeItem(item.id)}>X</button></td>
-                            </tr>
+                            <CartItem key={item.item.id} {...item} />
                         );
                     })}
                     </tbody>
                     <tfoot>
                     <tr>
                         <th colSpan={4}>Total</th>
-                        <th>${context.items.reduce((total, {item: {price}, quantity}) => {
-                            return total + price * quantity;
-                        }, 0)}</th>
+                        <th>${getTotal()}</th>
                         <th/>
                     </tr>
                     </tfoot>

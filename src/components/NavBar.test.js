@@ -13,6 +13,17 @@ jest.mock("./CartWidget", () => {
     }
 });
 
+jest.mock("./Nav", () => {
+    return {
+        __esModule: true,
+        default: () => {
+            return (
+                <span>Navigation</span>
+            )
+        }
+    }
+});
+
 test('NavBar has logo that links to home', () => {
     render(
         <MemoryRouter>

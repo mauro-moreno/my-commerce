@@ -1,9 +1,12 @@
-import getItems from "./getItems";
+import getFirestore from "./getFirestore";
 
-const getItem = (id) => {
-    return getItems().then(data => {
-        return data.find(item => item.id === id)
-    });
+const getItem = async id => {
+    const itemCollection = getFirestore().collection("items");
+    const doc = await itemCollection.doc(id).get();
+    if (!doc.exists) {
+        throw new Error("Not Found");
+    }
+    return {id: doc.id, ...doc.data()};
 };
 
 export default getItem;

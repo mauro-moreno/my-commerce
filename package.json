@@ -13,6 +13,7 @@
     "basscss-colors": "^2.2.0",
     "basscss-ui-utility-groups": "^1.0.1",
     "basscss-utility-headings": "^0.1.0",
+    "firebase": "^8.9.1",
     "normalize.css": "^8.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

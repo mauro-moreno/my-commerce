@@ -1,27 +1,18 @@
-const getItems = () => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve([
-                {
-                    id: 1,
-                    title: "Title test",
-                    description: "Description test",
-                    price: 1000,
-                    pictureUrl: "https://via.placeholder.com/400x300",
-                    stock: 5,
-                    initial: 1
-                },
-                {
-                    id: 2,
-                    title: "Title test 2",
-                    description: "Description test 2",
-                    price: 2000,
-                    pictureUrl: "https://via.placeholder.com/400x300",
-                    stock: 10,
-                    initial: 1
-                },
-            ]);
-        }, 2000)
+import getFirestore from "./getFirestore";
+
+const getItems = async categoryId => {
+    let itemCollection = getFirestore().collection("items");
+    if (categoryId) {
+        const categoryRef = getFirestore().collection("categories").doc(categoryId);
+        itemCollection = itemCollection
+            .where("categoryId", "==", categoryRef)
+    }
+    const querySnapshot = await itemCollection.get();
+    if (querySnapshot.size === 0) {
+        return [];
+    }
+    return querySnapshot.docs.map(doc => {
+        return {id: doc.id, ...doc.data()}
     });
 }
 

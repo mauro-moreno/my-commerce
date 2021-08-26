@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react';
-import CartWidget from "./CartWidget.js";
-import * as CartContext from "../context/CartContext";
 import {MemoryRouter} from "react-router-dom";
+import * as CartContext from "../context/CartContext";
+import CartWidget from "./CartWidget.js";
 
 test('CartWidget is not shown when there is no item in context', () => {
     const spy = jest
@@ -18,28 +18,15 @@ test('CartWidget is not shown when there is no item in context', () => {
 });
 
 test('CartWidget have an icon and shows quantity when there is item in context', () => {
+    const getQuantity = jest.fn().mockImplementation(() => 5)
     const spy = jest
         .spyOn(CartContext, 'useCartContext')
         .mockImplementation(() => {
             return {
                 items: [
-                    {
-                        item: {
-                            id: 1,
-                            title: "Item 1",
-                            price: 10
-                        },
-                        quantity: 2
-                    },
-                    {
-                        item: {
-                            id: 2,
-                            title: "Item 1",
-                            price: 5
-                        },
-                        quantity: 3
-                    }
-                ]
+                    {}
+                ],
+                getQuantity
             }
         })
     render(
@@ -48,6 +35,7 @@ test('CartWidget have an icon and shows quantity when there is item in context',
         </MemoryRouter>
     );
     expect(spy).toBeCalled();
+    expect(getQuantity).toBeCalled();
     expect(screen.getByText("cart")).toBeInTheDocument();
     expect(screen.getByText("(5)")).toBeInTheDocument();
     expect(screen.getByText("(5)")).toHaveAttribute("href", "/cart");

@@ -5,22 +5,34 @@ import getItem from "../services/getItem";
 
 const ItemDetailContainer = () => {
     const [item, setItem] = useState(undefined);
+    const [loading, setLoading] = useState(true);
 
     const {id} = useParams();
 
     useEffect(() => {
-        getItem(parseInt(id))
+        getItem(id)
             .then((data) => {
                 setItem(data);
+                setLoading(false);
+            })
+            .catch(e => {
+                console.log(e)
+                setLoading(false);
             })
     }, [id]);
 
     return (
         <Fragment>
-            {typeof item === "undefined" ? (
+            {loading === true ? (
                 <p>Cargando</p>
             ) : (
-                <ItemDetail item={item}/>
+                <Fragment>
+                    {typeof item === "undefined" ? (
+                        <p>Item no encontrado</p>
+                    ) : (
+                        <ItemDetail item={item}/>
+                    )}
+                </Fragment>
             )}
         </Fragment>
     );

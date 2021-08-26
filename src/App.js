@@ -20,13 +20,13 @@ const App = () => {
                 <NavBar/>
                 <Switch>
                     <Route exact path="/">
-                        <ItemListContainer greeting="Categoria 1"/>
+                        <ItemListContainer greeting="Hola Mundo"/>
                     </Route>
                     <Route exact path="/cart">
                         <Cart/>
                     </Route>
-                    <Route path="/category/:id">
-                        <ItemListContainer greeting="Categoria 2"/>
+                    <Route path="/category/:categoryId">
+                        <ItemListContainer greeting="Hola Mundo"/>
                     </Route>
                     <Route path="/item/:id">
                         <ItemDetailContainer/>
