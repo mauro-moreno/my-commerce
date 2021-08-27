@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen } from "@testing-library/react";
 import NavBar from "./NavBar.js";
 import {MemoryRouter} from "react-router-dom";
 
@@ -24,7 +24,7 @@ jest.mock("./Nav", () => {
     }
 });
 
-test('NavBar has logo that links to home', () => {
+test("NavBar has logo that links to home", () => {
     render(
         <MemoryRouter>
             <NavBar />

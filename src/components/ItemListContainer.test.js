@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen } from "@testing-library/react";
 import {MemoryRouter, Route} from "react-router-dom";
 import ItemListContainer from "./ItemListContainer.js";
 import * as CartContext from "../context/CartContext";
@@ -14,7 +14,7 @@ jest.mock("./ItemList", () => {
     }
 });
 
-test('ItemListContainer to contain greeting text', () => {
+test("ItemListContainer to contain greeting text", () => {
     const greeting = "test greeting";
     render(
         <MemoryRouter>
@@ -23,10 +23,10 @@ test('ItemListContainer to contain greeting text', () => {
     );
     const cart = screen.getByText(greeting);
     expect(cart).toBeInTheDocument();
-    expect(screen.getByText('Item list')).toBeInTheDocument();
+    expect(screen.getByText("Item list")).toBeInTheDocument();
 });
 
-test('ItemListContainer shows category title when defined', () => {
+test("ItemListContainer shows category title when defined", () => {
     const categories = [{
         id: 1,
         name: "Category 1"
@@ -36,7 +36,7 @@ test('ItemListContainer shows category title when defined', () => {
     }];
     const getCategory = jest.fn().mockImplementation(() => categories[0]);
     const spy = jest
-        .spyOn(CartContext, 'useCartContext')
+        .spyOn(CartContext, "useCartContext")
         .mockImplementation(() => {
             return {
                 categories,

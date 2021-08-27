@@ -1,4 +1,4 @@
-import {render, screen, waitFor} from '@testing-library/react';
+import {render, screen, waitFor} from "@testing-library/react";
 import ItemDetail from "./ItemDetail.js";
 import userEvent from "@testing-library/user-event";
 import {MemoryRouter} from "react-router-dom";
@@ -32,9 +32,9 @@ jest.mock("./ItemCount", () => {
     }
 });
 
-test('ItemDetail renders item data', () => {
+test("ItemDetail renders item data", () => {
     jest
-        .spyOn(CartContext, 'useCartContext')
+        .spyOn(CartContext, "useCartContext")
         .mockImplementation(() => {
             return {
                 items: [],
@@ -45,14 +45,14 @@ test('ItemDetail renders item data', () => {
     expect(screen.getByText(item.title)).toBeInTheDocument();
     expect(screen.getByText(item.description)).toBeInTheDocument();
     expect(screen.getByText(`$${item.price}`)).toBeInTheDocument();
-    expect(screen.getByRole('img')).toHaveAttribute('src', item.pictureUrl);
-    expect(screen.getByRole('img')).toHaveAttribute('alt', item.title);
+    expect(screen.getByRole("img")).toHaveAttribute("src", item.pictureUrl);
+    expect(screen.getByRole("img")).toHaveAttribute("alt", item.title);
 });
 
-test('ItemDetail can add item to cart', async () => {
+test("ItemDetail can add item to cart", async () => {
     const addItem = jest.fn();
     const spy = jest
-        .spyOn(CartContext, 'useCartContext')
+        .spyOn(CartContext, "useCartContext")
         .mockImplementation(() => {
             return {
                 items: [],
@@ -73,19 +73,19 @@ test('ItemDetail can add item to cart', async () => {
     await waitFor(() => {
         expect(screen.queryByText(`Stock: ${item.stock}`)).not.toBeInTheDocument();
         expect(screen.queryByText(`Initial: ${item.initial}`)).not.toBeInTheDocument();
-        expect(screen.getByText('Terminar la compra')).toBeInTheDocument();
-        expect(screen.getByText('Cantidad: 2')).toBeInTheDocument();
+        expect(screen.getByText("Terminar la compra")).toBeInTheDocument();
+        expect(screen.getByText("Cantidad: 2")).toBeInTheDocument();
     });
 
-    userEvent.click(screen.getByText('Terminar la compra'));
+    userEvent.click(screen.getByText("Terminar la compra"));
     await waitFor(() => {
         expect(addItem).toHaveBeenCalledWith(item, 2);
     })
 });
 
-test('ItemDetail cannot add item already in cart', async () => {
+test("ItemDetail cannot add item already in cart", async () => {
     const spy = jest
-        .spyOn(CartContext, 'useCartContext')
+        .spyOn(CartContext, "useCartContext")
         .mockImplementation(() => {
             return {
                 items: [item],

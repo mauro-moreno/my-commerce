@@ -1,8 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen } from "@testing-library/react";
 import Item from "./Item.js";
 import {MemoryRouter} from "react-router-dom";
 
-test('Item renders item data', () => {
+test("Item renders item data", () => {
     const item = {
         title: "Title test",
         description: "Description test",
@@ -16,6 +16,6 @@ test('Item renders item data', () => {
     );
     expect(screen.getByText(item.title)).toBeInTheDocument();
     expect(screen.getByText(`$${item.price}`)).toBeInTheDocument();
-    expect(screen.getByRole('img')).toHaveAttribute('src', item.pictureUrl);
-    expect(screen.getByRole('img')).toHaveAttribute('alt', item.title);
+    expect(screen.getByRole("img")).toHaveAttribute("src", item.pictureUrl);
+    expect(screen.getByRole("img")).toHaveAttribute("alt", item.title);
 });

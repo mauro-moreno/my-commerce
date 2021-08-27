@@ -3,7 +3,9 @@ import userEvent from "@testing-library/user-event";
 import {MemoryRouter} from "react-router-dom";
 import * as CartContext from "../context/CartContext";
 import Cart from "./Cart";
+import getUser from "../services/getUser";
 
+jest.mock("../services/getUser",)
 jest.mock("./CartItem", () => {
     return {
         __esModule: true,
@@ -17,18 +19,32 @@ jest.mock("./CartItem", () => {
         }
     }
 });
+jest.mock("./User", () => {
+    return {
+        __esModule: true,
+        default: () => {
+            return (
+                <h1>User</h1>
+            )
+        }
+    }
+});
 
-test('Cart shows message when no item is in cart', () => {
+test("Cart shows message when no item is in cart", async () => {
     const spy = jest
-        .spyOn(CartContext, 'useCartContext')
+        .spyOn(CartContext, "useCartContext")
         .mockImplementation(() => {
-            return {items: []}
+            return {
+                items: [],
+                getUser: jest.fn()
+            }
         });
     render(
         <MemoryRouter>
-            <Cart />
+            <Cart/>
         </MemoryRouter>
     );
+
     expect(spy).toHaveBeenCalled();
     expect(screen.getByText("No hay items en el carrito")).toBeInTheDocument();
     expect(screen.getByText("Volver")).toBeInTheDocument();
@@ -36,7 +52,7 @@ test('Cart shows message when no item is in cart', () => {
     expect(screen.queryAllByRole("row")).toHaveLength(0);
 });
 
-test('Cart shows items in table', () => {
+test("Cart shows items in table", async () => {
     const items = [
         {
             item: {
@@ -58,14 +74,16 @@ test('Cart shows items in table', () => {
         }
     ];
     const spy = jest
-        .spyOn(CartContext, 'useCartContext')
+        .spyOn(CartContext, "useCartContext")
         .mockImplementation(() => {
             return {
                 items,
-                getTotal: jest.fn()
+                getTotal: jest.fn(),
+                getUser: jest.fn()
             }
         });
-    render(<Cart />);
+    render(<Cart/>);
+
     expect(spy).toHaveBeenCalled();
     expect(screen.getByText("Carrito")).toBeInTheDocument();
     const rows = screen.getAllByRole("row");
@@ -79,7 +97,51 @@ test('Cart shows items in table', () => {
     });
 });
 
-test('Cart can be cleared', async () => {
+test("Cart can be checkout", async () => {
+    const items = [
+        {
+            item: {
+                id: 1,
+                title: "Item 1",
+                price: 10
+            },
+            quantity: 2,
+            subtotal: 20
+        },
+        {
+            item: {
+                id: 2,
+                title: "Item 2",
+                price: 5
+            },
+            quantity: 3,
+            subtotal: 15
+        }
+    ];
+    const checkout = jest.fn();
+    const getTotal = jest.fn();
+    jest
+        .spyOn(CartContext, "useCartContext")
+        .mockImplementation(() => {
+            return {
+                items,
+                checkout,
+                getTotal,
+                getUser: jest.fn()
+            }
+        });
+    render(<Cart/>);
+
+    expect(screen.getByText("Finalizar compra")).toBeInTheDocument();
+    userEvent.click(screen.getByText("Finalizar compra"));
+
+    await waitFor(() => {
+        expect(checkout).toHaveBeenCalled();
+    });
+});
+
+
+test("Cart can be cleared", async () => {
     const items = [
         {
             item: {
@@ -103,18 +165,64 @@ test('Cart can be cleared', async () => {
     const clear = jest.fn();
     const getTotal = jest.fn();
     jest
-        .spyOn(CartContext, 'useCartContext')
+        .spyOn(CartContext, "useCartContext")
         .mockImplementation(() => {
             return {
                 items,
                 clear,
-                getTotal
+                getTotal,
+                getUser: jest.fn()
             }
         });
-    render(<Cart />);
+    getUser.mockResolvedValue({
+        name: "John Doe",
+        email: "jhn@doe.com",
+        phone: "1234567890"
+    });
+    render(<Cart/>);
+
     expect(screen.getByText("Limpiar carrito")).toBeInTheDocument();
     userEvent.click(screen.getByText("Limpiar carrito"));
+
     await waitFor(() => {
         expect(clear).toHaveBeenCalled();
     });
+});
+
+test("Cart cannot be modified with order", async () => {
+    const items = [
+        {
+            item: {
+                id: 1,
+                title: "Item 1",
+                price: 10
+            },
+            quantity: 2,
+            subtotal: 20
+        },
+        {
+            item: {
+                id: 2,
+                title: "Item 2",
+                price: 5
+            },
+            quantity: 3,
+            subtotal: 15
+        }
+    ];
+    const getTotal = jest.fn();
+    jest
+        .spyOn(CartContext, "useCartContext")
+        .mockImplementation(() => {
+            return {
+                order: 1,
+                items,
+                getTotal,
+                getUser: jest.fn()
+            }
+        });
+    render(<Cart/>);
+
+    expect(screen.queryByText("Limpiar carrito")).not.toBeInTheDocument();
+    expect(screen.queryByText("Finalizar compra")).not.toBeInTheDocument();
 });

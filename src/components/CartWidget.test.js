@@ -1,11 +1,11 @@
-import {render, screen} from '@testing-library/react';
+import {render, screen} from "@testing-library/react";
 import {MemoryRouter} from "react-router-dom";
 import * as CartContext from "../context/CartContext";
 import CartWidget from "./CartWidget.js";
 
-test('CartWidget is not shown when there is no item in context', () => {
+test("CartWidget is not shown when there is no item in context", () => {
     const spy = jest
-        .spyOn(CartContext, 'useCartContext')
+        .spyOn(CartContext, "useCartContext")
         .mockImplementation(() => {
             return {
                 items: []
@@ -17,10 +17,10 @@ test('CartWidget is not shown when there is no item in context', () => {
     expect(screen.queryByText("(0)")).not.toBeInTheDocument();
 });
 
-test('CartWidget have an icon and shows quantity when there is item in context', () => {
+test("CartWidget have an icon and shows quantity when there is item in context", () => {
     const getQuantity = jest.fn().mockImplementation(() => 5)
     const spy = jest
-        .spyOn(CartContext, 'useCartContext')
+        .spyOn(CartContext, "useCartContext")
         .mockImplementation(() => {
             return {
                 items: [

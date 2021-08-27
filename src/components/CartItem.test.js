@@ -10,7 +10,7 @@ const item = {
     pictureUrl: "https://via.placeholder.com/400x300"
 };
 
-test('CartItem renders item data', () => {
+test("CartItem renders item data", () => {
     const quantity = 2;
     const subtotal = 2000;
     render(
@@ -26,10 +26,10 @@ test('CartItem renders item data', () => {
     expect(screen.getByText(`$${subtotal}`)).toBeInTheDocument();
 });
 
-test('CartItem can remove an item from context', () => {
+test("CartItem can remove an item from context", () => {
     const removeItem = jest.fn();
     jest
-        .spyOn(CartContext, 'useCartContext')
+        .spyOn(CartContext, "useCartContext")
         .mockImplementation(() => {
             return {
                 removeItem
@@ -47,4 +47,24 @@ test('CartItem can remove an item from context', () => {
     expect(screen.getByText("X")).toBeInTheDocument();
     userEvent.click(screen.getByText("X"));
     expect(removeItem).toBeCalledWith(1);
+});
+
+test("CartItem cannot be modified if there is an order", () => {
+    jest
+        .spyOn(CartContext, "useCartContext")
+        .mockImplementation(() => {
+            return {
+                order: 1
+            }
+        });
+    const quantity = 2;
+    const subtotal = 2000;
+    render(
+        <table>
+            <tbody>
+            <CartItem item={item} quantity={quantity} subtotal={subtotal}/>
+            </tbody>
+        </table>
+    );
+    expect(screen.queryByText("X")).not.toBeInTheDocument();
 });

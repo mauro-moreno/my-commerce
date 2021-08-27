@@ -1,5 +1,7 @@
 import {createContext, useContext, useEffect, useState} from "react";
 import getCategories from "../services/getCategories";
+import getUser from "../services/getUser";
+import createOrder from "../services/createOrder";
 
 const CartContext = createContext([]);
 
@@ -10,6 +12,8 @@ const {Provider} = CartContext;
 const CartContextProvider = ({children}) => {
     const [items, setItems] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [user, setUser] = useState({});
+    const [order, setOrder] = useState();
 
     const addItem = (item, quantity) => {
         if (isInCart(item.id)) {
@@ -46,16 +50,36 @@ const CartContextProvider = ({children}) => {
         return categories.find((i) => i.id === categoryId);
     };
 
+    const checkout = () => {
+        const order = {
+            buyer: user,
+            items: items.map(i => {
+                return {
+                    id: i.item.id,
+                    title: i.item.title,
+                    price: i.item.price
+                }
+            }),
+            total: getTotal()
+        };
+        createOrder(order).then(id => {
+            setOrder(id);
+        })
+    };
+
     const context = {
         items,
         categories,
+        user,
+        order,
         addItem,
         removeItem,
         clear,
         isInCart,
         getCategory,
         getQuantity,
-        getTotal
+        getTotal,
+        checkout
     }
 
     useEffect(() => {
@@ -66,6 +90,9 @@ const CartContextProvider = ({children}) => {
             .catch((e) => {
                 console.log(e);
             });
+        getUser().then(data => {
+            setUser(data);
+        });
     }, []);
 
     return (

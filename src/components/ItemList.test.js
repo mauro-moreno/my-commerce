@@ -1,4 +1,4 @@
-import {render, screen, waitFor} from '@testing-library/react';
+import {render, screen, waitFor} from "@testing-library/react";
 import {MemoryRouter} from "react-router-dom";
 import getItems from "../services/getItems";
 import ItemList from "./ItemList.js";
@@ -15,7 +15,7 @@ jest.mock("./Item", () => {
     }
 });
 
-test('ItemList renders items from promise', async () => {
+test("ItemList renders items from promise", async () => {
     const items = [
         {
             id: 1,
@@ -45,7 +45,7 @@ test('ItemList renders items from promise', async () => {
     await waitFor(() => expect(screen.getByText(`${items[1].id} ${items[1].title}`)).toBeInTheDocument());
 });
 
-test('ItemList is shown by category', async () => {
+test("ItemList is shown by category", async () => {
     const items = [
         {
             id: 1,

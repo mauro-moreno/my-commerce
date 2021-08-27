@@ -1,7 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import {render, screen, waitFor} from '@testing-library/react';
 import App from './App';
 
-test('Copyright is present in the App', () => {
-  render(<App />);
-  expect(screen.getByText(/Copyright 2021/i)).toBeInTheDocument();
+test('Copyright is present in the App', async () => {
+    render(<App/>);
+    await waitFor(() => {
+        expect(screen.getByText(/Copyright 2021/i)).toBeInTheDocument();
+    })
 });

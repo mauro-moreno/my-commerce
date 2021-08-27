@@ -1,4 +1,4 @@
-import {render, screen, waitFor} from '@testing-library/react';
+import {render, screen, waitFor} from "@testing-library/react";
 import ItemDetailContainer from "./ItemDetailContainer.js";
 import getItem from "../services/getItem";
 import {MemoryRouter} from "react-router-dom";
@@ -15,7 +15,7 @@ jest.mock("./ItemDetail", () => {
     }
 });
 
-test('ItemDetailContainer render an item from promise', async () => {
+test("ItemDetailContainer render an item from promise", async () => {
     const item = {
         id: 1,
         title: "Title test",
