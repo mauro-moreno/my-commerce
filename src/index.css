@@ -1,0 +1,10 @@
+body {
+    margin: 0;
+    background-color: #ededed;
+    font-family: "Arial", serif;
+    position: relative;
+}
+
+h1, h2, h3, p {
+    margin: 0 0 0.5rem;
+}

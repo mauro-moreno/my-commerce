@@ -1,0 +1,13 @@
+.counter-control-container {
+    margin-bottom: 0.5rem;
+}
+.counter-control-container span {
+    padding: 0 1rem;
+}
+.counter-control-container button {
+    padding: 0.5rem 1rem;
+}
+
+.add-container button {
+    padding: 0.5rem 2.3rem;
+}

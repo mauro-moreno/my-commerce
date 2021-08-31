@@ -1,9 +1,28 @@
-import {render, screen, waitFor} from '@testing-library/react';
-import App from './App';
+import {render, screen} from "@testing-library/react";
+import App from "./App";
 
-test('Copyright is present in the App', async () => {
+jest.mock("./context/AppContext", () => {
+    return {
+        __esModule: true,
+        default: ({children}) => {
+            return (
+                <div>{children}</div>
+            )
+        }
+    }
+});
+jest.mock("./components/NavBar", () => {
+    return {
+        __esModule: true,
+        default: () => {
+            return (
+                <div>NavBar</div>
+            )
+        }
+    }
+});
+
+test("Copyright is present in the App", async () => {
     render(<App/>);
-    await waitFor(() => {
-        expect(screen.getByText(/Copyright 2021/i)).toBeInTheDocument();
-    })
+    expect(screen.getByText(/Copyright 2021/i)).toBeInTheDocument();
 });

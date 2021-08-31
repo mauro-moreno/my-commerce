@@ -1,15 +1,16 @@
 import React, {memo} from "react";
 import {NavLink} from "react-router-dom";
-import {useCartContext} from "../context/CartContext";
+import {useCategoriesContext} from "../context/CategoriesContext";
+import "./Nav.css";
 
 const Nav = () => {
-    const {categories} = useCartContext();
+    const {categories} = useCategoriesContext();
 
     return (
-        <nav className="left">
+        <nav>
             {categories.map(({id, name}) => {
                 return (
-                    <NavLink key={id} to={`/category/${id}`} className="btn py2">
+                    <NavLink key={id} to={`/category/${id}`}>
                         {name}
                     </NavLink>
                 )

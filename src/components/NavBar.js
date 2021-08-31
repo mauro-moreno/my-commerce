@@ -2,15 +2,16 @@ import {Fragment} from "react";
 import {NavLink} from "react-router-dom";
 import Nav from "./Nav";
 import CartWidget from "./CartWidget";
+import "./NavBar.css";
 
 const NavBar = () => {
     return (
         <Fragment>
-            <header className="clearfix mb2 p1 white bg-black">
-                <div className="left">
-                    <NavLink to="/" className="btn">My Commerce</NavLink>
+            <header>
+                <div className="logo-container">
+                    <NavLink exact to="/" className="logo">My Commerce</NavLink>
                 </div>
-                <div className="right align-middle">
+                <div className="navigator-container">
                     <Nav/>
                     <CartWidget/>
                 </div>

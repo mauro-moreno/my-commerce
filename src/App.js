@@ -1,40 +1,35 @@
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import 'normalize.css/normalize.css';
-import 'basscss/css/basscss.min.css';
-import 'basscss-btn/index.css';
-import 'basscss-btn-outline/index.css';
-import 'basscss-background-colors/index.css';
-import 'basscss-colors/index.css';
-import 'basscss-ui-utility-groups/index.css';
-import './App.css';
-import {CartContextProvider} from "./context/CartContext";
+import AppContext from "./context/AppContext";
 import NavBar from "./components/NavBar";
 import ItemListContainer from "./components/ItemListContainer";
 import ItemDetailContainer from "./components/ItemDetailContainer";
 import Cart from "./components/Cart";
+import './App.css';
 
 const App = () => {
     return (
-        <CartContextProvider>
+        <AppContext>
             <BrowserRouter>
                 <NavBar/>
-                <Switch>
-                    <Route exact path="/">
-                        <ItemListContainer greeting="Hola Mundo"/>
-                    </Route>
-                    <Route exact path="/cart">
-                        <Cart/>
-                    </Route>
-                    <Route path="/category/:categoryId">
-                        <ItemListContainer greeting="Hola Mundo"/>
-                    </Route>
-                    <Route path="/item/:id">
-                        <ItemDetailContainer/>
-                    </Route>
-                </Switch>
+                <div className="container">
+                    <Switch>
+                        <Route exact path="/">
+                            <ItemListContainer greeting="Hola Mundo"/>
+                        </Route>
+                        <Route exact path="/cart">
+                            <Cart/>
+                        </Route>
+                        <Route path="/category/:categoryId">
+                            <ItemListContainer greeting="Hola Mundo"/>
+                        </Route>
+                        <Route path="/item/:id">
+                            <ItemDetailContainer/>
+                        </Route>
+                    </Switch>
+                </div>
             </BrowserRouter>
-            <footer className="clearfix mt2 p2 white bg-black center">Copyright 2021</footer>
-        </CartContextProvider>
+            <footer>Copyright 2021</footer>
+        </AppContext>
     );
 };
 

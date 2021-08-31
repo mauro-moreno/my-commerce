@@ -1,6 +1,4 @@
-import {createContext, useContext, useEffect, useState} from "react";
-import getCategories from "../services/getCategories";
-import getUser from "../services/getUser";
+import {createContext, useContext, useState} from "react";
 import createOrder from "../services/createOrder";
 
 const CartContext = createContext([]);
@@ -11,8 +9,6 @@ const {Provider} = CartContext;
 
 const CartContextProvider = ({children}) => {
     const [items, setItems] = useState([]);
-    const [categories, setCategories] = useState([]);
-    const [user, setUser] = useState({});
     const [order, setOrder] = useState();
 
     const addItem = (item, quantity) => {
@@ -46,11 +42,7 @@ const CartContextProvider = ({children}) => {
         }, 0);
     }
 
-    const getCategory = categoryId => {
-        return categories.find((i) => i.id === categoryId);
-    };
-
-    const checkout = () => {
+    const checkout = user => {
         const order = {
             buyer: user,
             items: items.map(i => {
@@ -69,31 +61,15 @@ const CartContextProvider = ({children}) => {
 
     const context = {
         items,
-        categories,
-        user,
         order,
         addItem,
         removeItem,
         clear,
         isInCart,
-        getCategory,
         getQuantity,
         getTotal,
         checkout
     }
-
-    useEffect(() => {
-        getCategories()
-            .then(data => {
-                setCategories(data);
-            })
-            .catch((e) => {
-                console.log(e);
-            });
-        getUser().then(data => {
-            setUser(data);
-        });
-    }, []);
 
     return (
         <Provider value={context}>

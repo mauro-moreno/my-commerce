@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import {MemoryRouter, Route} from "react-router-dom";
+import * as CategoriesContext from "../context/CategoriesContext";
 import ItemListContainer from "./ItemListContainer.js";
-import * as CartContext from "../context/CartContext";
 
 jest.mock("./ItemList", () => {
     return {
@@ -36,7 +36,7 @@ test("ItemListContainer shows category title when defined", () => {
     }];
     const getCategory = jest.fn().mockImplementation(() => categories[0]);
     const spy = jest
-        .spyOn(CartContext, "useCartContext")
+        .spyOn(CategoriesContext, "useCategoriesContext")
         .mockImplementation(() => {
             return {
                 categories,

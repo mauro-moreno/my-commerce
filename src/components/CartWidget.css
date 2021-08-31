@@ -1,0 +1,19 @@
+.cart-widget-icon {
+    display: none;
+}
+.cart-widget {
+    font-size: small;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    padding: 0 0 0 0.5em;
+}
+.cart-widget.active {
+    text-decoration: underline;
+}
+
+@media screen and (min-width: 40em) {
+    .cart-widget {
+        font-size: medium;
+    }
+}

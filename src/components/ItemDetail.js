@@ -2,6 +2,7 @@ import {Fragment, useState} from "react";
 import {useCartContext} from "../context/CartContext";
 import ItemCount from "./ItemCount";
 import {NavLink} from "react-router-dom";
+import "./ItemDetail.css";
 
 const ItemDetail = ({item}) => {
     const {title, description, price, pictureUrl, stock, initial} = item;
@@ -13,15 +14,15 @@ const ItemDetail = ({item}) => {
     };
 
     return (
-        <Fragment>
+        <div className="item-detail">
             <h2>{title}</h2>
+            <img src={pictureUrl} alt={title}/>
             <p>{description}</p>
             <p>${price}</p>
-            <img src={pictureUrl} alt={title}/>
             {count ? (
                 <Fragment>
                     <p>Cantidad: {count}</p>
-                    <NavLink to="/cart" className="btn btn-outline" onClick={() => context.addItem(item, count)}>
+                    <NavLink to="/cart" onClick={() => context.addItem(item, count)} className="add-item-to-cart">
                         Terminar la compra
                     </NavLink>
                 </Fragment>
@@ -34,7 +35,7 @@ const ItemDetail = ({item}) => {
                     )}
                 </Fragment>
             )}
-        </Fragment>
+        </div>
     );
 };
 

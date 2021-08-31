@@ -1,0 +1,30 @@
+.item-detail {
+    text-align: left;
+    margin: auto;
+    width: 100%;
+}
+
+.item-detail img {
+    width: 100%;
+    height: auto;
+}
+
+.item-detail .add-item-to-cart {
+    padding: 0.5em 1em;
+    border: 1px solid gray;
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+}
+
+@media screen and (min-width: 40em) {
+    .item-detail {
+        width: 75%;
+    }
+}
+
+@media screen and (min-width: 60em) {
+    .item-detail {
+        width: 50%;
+    }
+}

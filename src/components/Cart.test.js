@@ -2,8 +2,8 @@ import {render, screen, waitFor, within} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {MemoryRouter} from "react-router-dom";
 import * as CartContext from "../context/CartContext";
+import * as UserContext from "../context/UserContext";
 import Cart from "./Cart";
-import getUser from "../services/getUser";
 
 jest.mock("../services/getUser",)
 jest.mock("./CartItem", () => {
@@ -120,14 +120,25 @@ test("Cart can be checkout", async () => {
     ];
     const checkout = jest.fn();
     const getTotal = jest.fn();
+    const user = {
+        name: "John Doe",
+        email: "jhn@doe.com",
+        phone: "1234567890"
+    };
     jest
         .spyOn(CartContext, "useCartContext")
         .mockImplementation(() => {
             return {
                 items,
                 checkout,
-                getTotal,
-                getUser: jest.fn()
+                getTotal
+            }
+        });
+    jest
+        .spyOn(UserContext, "useUserContext")
+        .mockImplementation(() => {
+            return {
+                user
             }
         });
     render(<Cart/>);
@@ -136,7 +147,7 @@ test("Cart can be checkout", async () => {
     userEvent.click(screen.getByText("Finalizar compra"));
 
     await waitFor(() => {
-        expect(checkout).toHaveBeenCalled();
+        expect(checkout).toHaveBeenCalledWith(user);
     });
 });
 
@@ -170,15 +181,16 @@ test("Cart can be cleared", async () => {
             return {
                 items,
                 clear,
-                getTotal,
-                getUser: jest.fn()
+                getTotal
             }
         });
-    getUser.mockResolvedValue({
-        name: "John Doe",
-        email: "jhn@doe.com",
-        phone: "1234567890"
-    });
+    jest
+        .spyOn(UserContext, "useUserContext")
+        .mockImplementation(() => {
+            return {
+                user: {}
+            }
+        });
     render(<Cart/>);
 
     expect(screen.getByText("Limpiar carrito")).toBeInTheDocument();
@@ -217,8 +229,14 @@ test("Cart cannot be modified with order", async () => {
             return {
                 order: 1,
                 items,
-                getTotal,
-                getUser: jest.fn()
+                getTotal
+            }
+        });
+    jest
+        .spyOn(UserContext, "useUserContext")
+        .mockImplementation(() => {
+            return {
+                user: {}
             }
         });
     render(<Cart/>);

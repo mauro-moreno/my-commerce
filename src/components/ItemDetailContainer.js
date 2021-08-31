@@ -2,6 +2,7 @@ import {Fragment, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import ItemDetail from "./ItemDetail";
 import getItem from "../services/getItem";
+import "./ItemDetailContainer.css";
 
 const ItemDetailContainer = () => {
     const [item, setItem] = useState(undefined);
@@ -22,7 +23,7 @@ const ItemDetailContainer = () => {
     }, [id]);
 
     return (
-        <Fragment>
+        <div className="item-detail-container">
             {loading === true ? (
                 <p>Cargando</p>
             ) : (
@@ -34,7 +35,7 @@ const ItemDetailContainer = () => {
                     )}
                 </Fragment>
             )}
-        </Fragment>
+        </div>
     );
 };
 

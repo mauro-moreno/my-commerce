@@ -6,15 +6,7 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
-    "basscss": "^8.1.0",
-    "basscss-background-colors": "^2.1.0",
-    "basscss-btn": "^1.1.1",
-    "basscss-btn-outline": "^1.1.0",
-    "basscss-colors": "^2.2.0",
-    "basscss-ui-utility-groups": "^1.0.1",
-    "basscss-utility-headings": "^0.1.0",
     "firebase": "^8.9.1",
-    "normalize.css": "^8.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.2.0",
@@ -24,8 +16,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": [

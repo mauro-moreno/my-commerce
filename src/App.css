@@ -1,0 +1,22 @@
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    color: white;
+    background-color: black;
+    text-align: center;
+    padding: 1rem;
+}
+
+.container {
+    padding: 0.2em;
+    margin: 1rem 1rem calc(50px + 1rem);
+    background-color: white;
+}
+
+@media screen and (min-width: 40em) {
+    .container {
+        padding: 1rem;
+    }
+}

@@ -1,11 +1,11 @@
 import {Fragment} from "react";
 import {useParams} from "react-router-dom";
-import {useCartContext} from "../context/CartContext";
+import {useCategoriesContext} from "../context/CategoriesContext";
 import ItemList from "./ItemList";
 
 const ItemListContainer = ({ greeting }) => {
     const {categoryId} = useParams();
-    const {categories, getCategory} = useCartContext();
+    const {categories, getCategory} = useCategoriesContext();
 
     return (
         <Fragment>

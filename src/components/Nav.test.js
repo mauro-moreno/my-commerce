@@ -1,11 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import {MemoryRouter} from "react-router-dom";
-import * as CartContext from "../context/CartContext";
+import * as CategoriesContext from "../context/CategoriesContext";
 import Nav from "./Nav.js";
 
 test("Nav has two categories", () => {
     const spy = jest
-        .spyOn(CartContext, "useCartContext")
+        .spyOn(CategoriesContext, "useCategoriesContext")
         .mockImplementation(() => {
             return {
                 categories: [

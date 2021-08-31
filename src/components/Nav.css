@@ -1,0 +1,21 @@
+nav {
+    flex: 1 1 auto;
+}
+
+nav a {
+    padding: 0.5em;
+    color: white;
+    text-decoration: none;
+    font-size: small;
+}
+
+nav a.active {
+    text-decoration: underline;
+}
+
+@media screen and (min-width: 40em) {
+    nav a {
+        padding: 1em;
+        font-size: medium;
+    }
+}

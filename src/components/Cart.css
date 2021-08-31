@@ -1,0 +1,66 @@
+.cart-container {
+    text-align: center;
+}
+
+.cart {
+    text-align: left;
+    margin: auto;
+    width: 100%;
+}
+
+.cart > button {
+    padding: 0.5rem 1rem;
+}
+
+.cart table {
+    margin: 1rem 0;
+    width: 100%;
+    table-layout: fixed;
+    overflow-wrap: break-word;
+    border: 1px solid gray;
+    font-size: small;
+}
+
+.cart thead tr, .cart tfoot tr {
+    padding: 0.5rem;
+}
+
+.cart thead tr th:last-child {
+    width: 7%;
+}
+.cart thead tr th span {
+    display: none;
+}
+
+.cart tbody tr:nth-child(odd){
+    background-color: #ddd;
+}
+.cart tbody tr:nth-child(even){
+    background-color: #dfdfdf;
+}
+
+.cart .cart-back {
+    padding: 0.5em 1em;
+    border: 1px solid gray;
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+}
+
+@media screen and (min-width: 40em) {
+    .cart {
+        width: 75%;
+    }
+    .cart table {
+        font-size: medium;
+    }
+    .cart thead tr th span {
+        display: inline;
+    }
+}
+
+@media screen and (min-width: 60em) {
+    .cart {
+        width: 50%;
+    }
+}

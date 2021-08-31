@@ -1,6 +1,7 @@
 import {Fragment, useState} from "react";
+import "./ItemCount.css";
 
-const ItemCount = ({ stock, initial = 1, onAdd }) => {
+const ItemCount = ({stock, initial = 1, onAdd}) => {
     const [counter, setCounter] = useState(initial);
 
     const increment = () => {
@@ -21,15 +22,13 @@ const ItemCount = ({ stock, initial = 1, onAdd }) => {
 
     return (
         <Fragment>
-            <div className="mb2 clearfix">
-                <div className="left mr2">
-                    <button className="btn btn-outline" onClick={decrement}>-</button>
-                    <span className="m2">{counter}</span>
-                    <button className="btn btn-outline" onClick={increment}>+</button>
-                </div>
-                <div className="left">
-                    <button className="btn btn-outline" onClick={add}>Agregar</button>
-                </div>
+            <div className="counter-control-container">
+                <button onClick={decrement}>-</button>
+                <span>{counter}</span>
+                <button onClick={increment}>+</button>
+            </div>
+            <div className="add-container">
+                <button onClick={add}>Agregar</button>
             </div>
         </Fragment>
     )

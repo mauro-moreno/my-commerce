@@ -2,6 +2,7 @@ import {Fragment, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import getItems from "../services/getItems";
 import Item from "./Item";
+import "./ItemList.css";
 
 const ItemList = () => {
     const [items, setItems] = useState([]);
@@ -25,17 +26,17 @@ const ItemList = () => {
             {loading === true ? (
                 <p>Cargando</p>
             ) : (
-                <Fragment>
+                <div className="item-list-container">
                     {items.length === 0 ? (
                         <p>No se encontraron items</p>
                     ) : (
-                        <div>
+                        <Fragment>
                             {items.map(item => {
                                 return <Item key={item.id} item={item}/>;
                             })}
-                        </div>
+                        </Fragment>
                     )}
-                </Fragment>
+                </div>
             )}
         </Fragment>
     );
