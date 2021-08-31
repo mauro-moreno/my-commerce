@@ -2,6 +2,10 @@
 
 [CoderHouse](https://www.coderhouse.com/) React.js course final project.
 
+## Demo
+
+![Demo](demo/demo.gif)
+
 ## Installation
 
 Clone this repository and use `npm install` to get all its dependencies.
